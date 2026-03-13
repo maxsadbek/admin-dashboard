@@ -1,4 +1,5 @@
-import { Bell, Filter, Logs, Plus, Search, Sun } from "lucide-react";
+import { Bell, ChevronDown, Filter, Logs, Plus, Search, Settings, Sun } from "lucide-react";
+import UserImage from "../../assets/userImage.jpg"
 
 const Header = () => {
   return (
@@ -20,7 +21,7 @@ const Header = () => {
         {/* Center */}
         <div className="flex-1 max-w-md mx-8">
           <div className="relative">
-            <Search className="w-5 h-5 absolute left-5 top-1/2 transform -translate-1/2 text-slate-400"/>
+            <Search className="w-5 h-5 absolute left-5 top-1/2 transform -translate-1/2 text-slate-400" />
             <input
               type="text"
               placeholder="Serach Anything"
@@ -36,19 +37,40 @@ const Header = () => {
         <div className="flex items-center space-x-3">
           {/* Quic Action */}
           <button className="hidden lg:flex items-center space-x-2 py-2 px-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full hover:shadow-lg transition-all">
-            <Plus className="w-4 h-4"/>
+            <Plus className="w-4 h-4" />
             <span className="text-sm font-medium">New</span>
           </button>
           {/* Toggle */}
           <button className="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-            <Sun className="w-5 h-5"/>
+            <Sun className="w-5 h-5" />
           </button>
 
           {/* Notification */}
           <button className="relative p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-            <Bell className="w-5 h-5"/>
-            <span className="absolute -top-1 w-5 h-5  bg-red-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
+            <Bell className="w-5 h-5" />
+            <span className="absolute -top-1 w-5 h-5  bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+              3
+            </span>
           </button>
+
+          {/* Settings */}
+
+          <button className="relative p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            <Settings className="w-5 h-5"/>
+          </button>
+
+          {/* User profile */}
+          <div className="flex items-center space-x-3 pl-3 border-l border-slate-200 dark:border-slate-700">
+            <img src={UserImage}
+             alt="User"
+            className="w-8 h-8 rounded-full ring-2 ring-blue-500"
+             />
+             <div>
+              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Maxsad Baxtiyorov</p>
+              <p className="text-slate-500 text-xs dark:text-slate-400">Administrator</p>
+             </div>
+             <ChevronDown className="w-4 h-4 text-slate-400"/>
+          </div>
         </div>
       </div>
     </div>

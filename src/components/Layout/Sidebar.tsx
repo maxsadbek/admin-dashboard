@@ -1,9 +1,89 @@
-import { Triangle } from "lucide-react";
-import UserImage from "../../assets/userImage.jpg"
+import {
+  Triangle,
+  LayoutDashboard,
+  BarChart,
+  Users,
+  ShoppingBag,
+  Package,
+  MessageSquare,
+  Calendar,
+  FileText,
+  Settings,
+  ChevronDown,
+} from "lucide-react";
+import UserImage from "../../assets/userImage.jpg";
+
+const menuItem = [
+  {
+    id: "dashboard",
+    icon: <LayoutDashboard />,
+    label: "Dashboard",
+    active: true,
+    badge: "New",
+  },
+  {
+    id: "analytics",
+    icon: <BarChart />,
+    label: "Analytics",
+    subMenu: [
+      { id: "overview", label: "Overview" },
+      { id: "reports", label: "Reports" },
+      { id: "insights", label: "Insights" },
+    ],
+  },
+  {
+    id: "users",
+    icon: <Users />,
+    label: "Users",
+    count: "2.4k",
+    subMenu: [
+      { id: "all-users", label: "All Users" },
+      { id: "roles", label: "Roles & Permissions" },
+      { id: "activity", label: "User Activity" },
+    ],
+  },
+  {
+    id: "ecommerce",
+    icon: <ShoppingBag />,
+    label: "E-commerce",
+    subMenu: [
+      { id: "products", label: "Products" },
+      { id: "orders", label: "Orders" },
+      { id: "customers", label: "Customers" },
+    ],
+  },
+  {
+    id: "inventory",
+    icon: <Package />,
+    label: "inventory",
+    count: "847",
+  },
+  {
+    id: "transactions",
+    icon: <MessageSquare />,
+    label: "Messages",
+    badge: "12",
+  },
+  {
+    id: "calendar",
+    icon: <Calendar />,
+    label: "Calendar",
+  },
+  {
+    id: "reports",
+    icon: <FileText />,
+    label: "Reports",
+  },
+  {
+    id: "settings",
+    icon: <Settings />,
+    label: "Settings",
+  },
+];
 
 const Sidebar = () => {
   return (
-    <div className="transition duration-300 ease-in-out bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-r border-slate-200/50 dark:border-slate-700/50 flex flex-col relative z-10">
+    <div className="w-72 transition duration-300 ease-in-out bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-r border-slate-200/50 dark:border-slate-700/50 flex flex-col relative z-10">
       {/* Logo */}
       <div className="p-6 border-b border-slate-200/50 dark:border-slate-700/50 ">
         <div className="flex items-center space-x-3">
@@ -22,7 +102,42 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <nav className="flex-1 space-y-2 overflow-y-auto"></nav>
+      <nav className="flex-1 space-y-2 overflow-y-auto">
+        {menuItem.map((item) => {
+          return (
+            <div className="" key={item.id}>
+              <button
+                className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200`}
+              >
+                <div className="flex items-center space-x-3">
+                  <span className="dark:text-slate-200 w-5 h-5">
+                    {item.icon}
+                  </span>
+                  <>
+                    <span className="font-medium ml-2 dark:text-slate-300">{item.label}</span>
+                    {item.badge && (
+                      <span className="px-2 py-1 text-xs bg-red-500 text-white rounded-full">
+                        {item.badge}
+                      </span>
+                    )}
+                    {
+                      item.count && (
+                        <span className="px-2 py-1 text-xs bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full">{item.count}</span>
+                      )
+                    }
+                  </>
+                </div>
+
+                {
+                  item.subMenu && (
+                    < ChevronDown className="w-4 h-4 transition-transform dark:text-slate-400"/>
+                  )
+                }
+              </button>
+            </div>
+          );
+        })}
+      </nav>
 
       {/* User Profile */}
       <div className="p-4 border-t border-slate-200/50 dark:border-slate-700/50">
