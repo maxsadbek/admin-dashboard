@@ -1,13 +1,20 @@
 import { Bell, ChevronDown, Filter, Logs, Plus, Search, Settings, Sun } from "lucide-react";
 import UserImage from "../../assets/userImage.jpg"
 
-const Header = () => {
+type HeaderProps = {
+  onToggleSidebar: () => void;
+  sidebarCollapsed: boolean;
+};
+
+const Header = ({ onToggleSidebar, sidebarCollapsed }: HeaderProps) => {
   return (
     <div className="bg-white/50 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200/50  dark:border-slate-700/50 px-6 py-4">
       <div className="flex items-center justify-between">
         {/* Left section */}
         <div className="flex items-center space-x-4">
-          <button className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+          <button className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+          onClick={onToggleSidebar}
+          >
             <Logs className="w-5 h-5" />
           </button>
 
@@ -56,20 +63,25 @@ const Header = () => {
           {/* Settings */}
 
           <button className="relative p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-            <Settings className="w-5 h-5"/>
+            <Settings className="w-5 h-5" />
           </button>
 
           {/* User profile */}
           <div className="flex items-center space-x-3 pl-3 border-l border-slate-200 dark:border-slate-700">
-            <img src={UserImage}
-             alt="User"
-            className="w-8 h-8 rounded-full ring-2 ring-blue-500"
-             />
-             <div>
-              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Maxsad Baxtiyorov</p>
-              <p className="text-slate-500 text-xs dark:text-slate-400">Administrator</p>
-             </div>
-             <ChevronDown className="w-4 h-4 text-slate-400"/>
+            <img
+              src={UserImage}
+              alt="User"
+              className="w-8 h-8 rounded-full ring-2 ring-blue-500"
+            />
+            <div>
+              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                Maxsad Baxtiyorov
+              </p>
+              <p className="text-slate-500 text-xs dark:text-slate-400">
+                Administrator
+              </p>
+            </div>
+            <ChevronDown className="w-4 h-4 text-slate-400" />
           </div>
         </div>
       </div>
