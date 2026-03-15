@@ -1,10 +1,14 @@
 import RevneuseChart from "./RevneuChart"
+import SaleChart from "./SaleChart"
 
 const ChartSection = () => {
   return (
     <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
       <div className="xl:col-span-2">
         <RevneuseChart />
+      </div>
+      <div className="space-y-6">
+        <SaleChart />
       </div>
     </div>
   )
