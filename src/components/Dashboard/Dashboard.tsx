@@ -1,8 +1,10 @@
+import StatusGrid from "./StatusGrid"
 
 const Dashboard = () => {
   return (
     <div>
-      dashboard
+      {/* Status Grid */}
+      <StatusGrid />
     </div>
   )
 }

@@ -18,11 +18,11 @@ const Header = ({ onToggleSidebar, sidebarCollapsed }: HeaderProps) => {
             <Logs className="w-5 h-5" />
           </button>
 
-          <div className="hidden md-block">
+          <div className="hidden md:block">
             <h1 className="text-2xl font-black text-slate-800 dark:text-white">
               Dashboard
             </h1>
-            <p>Welcome back, Maxsad here's what's happened today</p>
+            <p className="dark:text-slate-400 text">Welcome back, Maxsad here's what's happened today</p>
           </div>
         </div>
         {/* Center */}
