@@ -15,6 +15,11 @@ import UserImage from "../../assets/userImage.jpg";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+/**
+ * Menyu elementlari strukturasi
+ * Har bir element id, icon va label'ga ega.
+ * subMenu mavjud bo'lsa, u pastki menyu sifatida ochiladi.
+ */
 const menuItem = [
   {
     id: "dashboard",
@@ -82,6 +87,9 @@ const menuItem = [
   },
 ];
 
+/**
+ * Framer Motion animatsiyalari: Sub-menyu ochilib yopilishi uchun
+ */
 const subMenuVariants = {
   hidden: {
     opacity: 0,
@@ -99,17 +107,11 @@ type SidebarProps = {
   collapsed: boolean;
   onToggle?: () => void;
   currentPage: string;
-  onPaheChange: (page: string) => void;
+  onPageChange: (page: string) => void;
 };
 
-const Sidebar = ({
-  collapsed,
-  onToggle,
-  currentPage,
-  onPaheChange,
-}: SidebarProps) => {
+const Sidebar = ({ collapsed, currentPage, onPageChange }: SidebarProps) => {
   const [expandedItems, setExpandedItem] = useState(new Set(["analytics"]));
-
   const toggleExpanded = (itemID: string) => {
     const newExpanded = new Set(expandedItems);
     if (newExpanded.has(itemID)) {
@@ -121,12 +123,16 @@ const Sidebar = ({
   };
 
   return (
-    <div
-      className={`${collapsed ? "w-20" : "w-72"}
-       transition-all duration-300 ease-in-out bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-r border-slate-200/50 dark:border-slate-700/50 flex flex-col relative z-10 h-screen
-    `}
+    <aside
+      className={`
+        ${collapsed ? "w-20" : "w-72"}
+        /* h-screen o'rniga min-h-dvh ishlatamiz, sticky orqali joyida qotiramiz */
+        transition-all duration-300 ease-in-out bg-white/80 dark:bg-slate-900/80
+        backdrop-blur-xl border-r border-slate-200/50 dark:border-slate-700/50
+        flex flex-col relative z-20 min-h-dvh sticky top-0
+      `}
     >
-      {/* Logo */}
+      {/* 1. LOGO QISMI */}
       <div className="p-6 border-b border-slate-200/50 dark:border-slate-700/50 ">
         <div className="flex items-center space-x-3">
           <div className="min-w-[40px] h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
@@ -134,8 +140,8 @@ const Sidebar = ({
           </div>
           {!collapsed && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
               className="overflow-hidden whitespace-nowrap"
             >
               <h1 className="text-xl font-bold text-slate-800 dark:text-white">
@@ -149,7 +155,7 @@ const Sidebar = ({
         </div>
       </div>
 
-      {/* Navigation */}
+      {/* 2. NAVIGATSIYA (MENU) */}
       <nav className="flex-1 space-y-1 overflow-y-auto p-3 custom-scrollbar">
         {menuItem.map((item) => {
           const isExpanded = expandedItems.has(item.id);
@@ -157,18 +163,19 @@ const Sidebar = ({
 
           return (
             <div className="mb-1" key={item.id}>
+              {/* Asosiy Menyu Tugmasi */}
               <button
                 className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200
                 ${
                   isActive
-                    ? "bg-blue-500 text-white shadow-lg shadow-blue-500/25"
+                    ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25"
                     : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50"
                 }`}
                 onClick={() => {
                   if (item.subMenu) {
                     toggleExpanded(item.id);
                   } else {
-                    onPaheChange(item.id);
+                    onPageChange(item.id);
                   }
                 }}
               >
@@ -185,6 +192,7 @@ const Sidebar = ({
                   )}
                 </div>
 
+                {/* Badge va Submenu belgisi */}
                 {!collapsed && (
                   <div className="flex items-center space-x-2">
                     {item.badge && (
@@ -206,7 +214,7 @@ const Sidebar = ({
                 )}
               </button>
 
-              {/* 3. Sub Menu Animatsiyasi */}
+              {/* 3. SUB-MENU ANIMATSIYASI */}
               <AnimatePresence>
                 {!collapsed && item.subMenu && isExpanded && (
                   <motion.div
@@ -221,11 +229,11 @@ const Sidebar = ({
                       {item.subMenu.map((subitem) => (
                         <button
                           key={subitem.id}
-                          onClick={() => onPaheChange(subitem.id)}
+                          onClick={() => onPageChange(subitem.id)}
                           className={`w-full text-left p-2 text-sm rounded-lg transition-all
                             ${
                               currentPage === subitem.id
-                                ? "text-blue-600 dark:text-blue-400 font-semibold"
+                                ? "text-blue-600 dark:text-blue-400 font-semibold bg-blue-50/50 dark:bg-blue-900/20"
                                 : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/40"
                             }`}
                         >
@@ -241,27 +249,29 @@ const Sidebar = ({
         })}
       </nav>
 
-      {/* User Profile */}
-      <div className="p-4 border-t border-slate-200/50 dark:border-slate-700/50">
+      {/* 4. FOYDALANUVCHI PROFILI (PASTKI QISM) */}
+      <div className="p-4 border-t border-slate-200/50 dark:border-slate-700/50 bg-white/50 dark:bg-slate-900/50">
         <div
           className={`flex items-center ${collapsed ? "justify-center" : "space-x-3"} p-2 rounded-xl bg-slate-50 dark:bg-slate-800/50`}
         >
           <img
             src={UserImage}
             alt="user"
-            className="w-10 h-10 rounded-full ring-2 ring-blue-500/20"
+            className="w-10 h-10 rounded-full ring-2 ring-blue-500/20 object-cover"
           />
           {!collapsed && (
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-slate-800 dark:text-white truncate">
                 Maxsadbek B.
               </p>
-              <p className="text-xs text-slate-500 truncate">Administrator</p>
+              <p className="text-xs text-slate-500 truncate text-ellipsis overflow-hidden">
+                Administrator
+              </p>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </aside>
   );
 };
 

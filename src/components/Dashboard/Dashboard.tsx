@@ -4,7 +4,7 @@ import TableSection from "./TableSection"
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className="">
       {/* Status Grid */}
       <StatusGrid />
       {/* Chart Section */}
