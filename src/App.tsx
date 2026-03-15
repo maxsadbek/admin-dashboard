@@ -20,7 +20,7 @@ const App = () => {
           <Header sidebarCollapsed={sideBarCollapsed}
           onToggleSidebar={() => setSideBarCollapsed(!sideBarCollapsed)}
           />
-            <main>
+            <main className="p-2">
               <div>
                 {currentPage === "dashboard" && <Dashboard />}
               </div>
