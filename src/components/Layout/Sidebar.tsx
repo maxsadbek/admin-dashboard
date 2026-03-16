@@ -125,7 +125,7 @@ const Sidebar = ({ collapsed, currentPage, onPageChange }: SidebarProps) => {
   return (
     <aside
       className={`
-        ${collapsed ? "w-20" : "w-72"}
+        ${collapsed ? "w-20" : "w-68"}
         /* h-screen o'rniga min-h-dvh ishlatamiz, sticky orqali joyida qotiramiz */
         transition-all duration-300 ease-in-out bg-white/80 dark:bg-slate-900/80
         backdrop-blur-xl border-r border-slate-200/50 dark:border-slate-700/50
@@ -163,7 +163,6 @@ const Sidebar = ({ collapsed, currentPage, onPageChange }: SidebarProps) => {
 
           return (
             <div className="mb-1" key={item.id}>
-              {/* Asosiy Menyu Tugmasi */}
               <button
                 className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200
                 ${
@@ -192,7 +191,6 @@ const Sidebar = ({ collapsed, currentPage, onPageChange }: SidebarProps) => {
                   )}
                 </div>
 
-                {/* Badge va Submenu belgisi */}
                 {!collapsed && (
                   <div className="flex items-center space-x-2">
                     {item.badge && (
