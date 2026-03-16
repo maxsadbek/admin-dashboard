@@ -1,6 +1,5 @@
 import { MoreHorizontal, TrendingUp } from "lucide-react";
 
-// 1. Ma'lumotlar bazasi (Mock Data)
 const orders = [
   {
     id: "#ORD-7421",
@@ -48,6 +47,37 @@ const getStatusStyles = (status) => {
       return "bg-slate-100 text-slate-700 dark:bg-slate-500/10 dark:text-slate-400";
   }
 };
+
+const products = [
+  {
+    id: 1,
+    name: "MacBook Pro M3",
+    sales: "1,245 sales",
+    revenue: "$3,245,000",
+    change: "+12.5%",
+  },
+  {
+    id: 2,
+    name: "iPhone 15 Pro",
+    sales: "2,134 sales",
+    revenue: "$2,560,000",
+    change: "+9.2%",
+  },
+  {
+    id: 3,
+    name: "iPad Air",
+    sales: "845 sales",
+    revenue: "$505,000",
+    change: "+6.1%",
+  },
+  {
+    id: 4,
+    name: "Apple Watch S9",
+    sales: "1,010 sales",
+    revenue: "$404,000",
+    change: "+4.3%",
+  },
+];
 
 const TableSection = () => {
   return (
@@ -152,26 +182,35 @@ const TableSection = () => {
             View All
           </button>
         </div>
-          {/* Dynamic Data */}
-          <div className="p-6 space-x-4">
-              <div className="flex items-center justify-between p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all">
-                <div className="flex-1">
-                  <h4 className="text-sm font-semibold text-slate-800 dark:text-shadow-white">
-                    Product Name
-                  </h4>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Product Sales
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm font-semibold text-slate-800 dark:text-white">Product Revenue</p>
-                  <div className="flex items-center space-x-1">
-                    <TrendingUp className="w-3 h-3 text-emerald-500"/>
-                    <span>Product Change</span>
-                  </div>
+        {/* Dynamic Data */}
+        <div className="p-6 space-y-4">
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="flex items-center justify-between p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
+            >
+              <div className="flex-1">
+                <h4 className="text-sm font-semibold text-slate-800 dark:text-white">
+                  {product.name}
+                </h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  {product.sales}
+                </p>
+              </div>
+
+              <div className="text-right">
+                <p className="text-sm font-semibold text-slate-800 dark:text-white">
+                  {product.revenue}
+                </p>
+
+                <div className="flex items-center justify-end space-x-1 text-emerald-500 text-xs font-medium">
+                  <TrendingUp className="w-3 h-3" />
+                  <span>{product.change}</span>
                 </div>
               </div>
-          </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
