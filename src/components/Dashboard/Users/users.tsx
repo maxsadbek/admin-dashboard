@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   MoreHorizontal,
   Search,
@@ -100,34 +101,41 @@ const usersData: User[] = [
 ];
 
 const Users = () => {
+  const [search, setSearch] = useState("");
+
+  const filteredUsers = usersData.filter((user) =>
+    user.name.toLowerCase().includes(search.toLowerCase()) ||
+      user.email.toLowerCase().includes(search.toLowerCase())
+  );
+
+  console.log(filteredUsers);
+
+
   return (
     <div className="p-6 space-y-6">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
-            Foydalanuvchilar
+            Users
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Tizimdagi barcha foydalanuvchilarni boshqarish
+            Manage all users in the system
           </p>
         </div>
-        <button className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl transition-all shadow-lg shadow-blue-500/25">
-          <UserPlus className="w-4 h-4" />
-          <span>Add user</span>
-        </button>
       </div>
 
       {/* Table Container */}
       <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-200/50 dark:border-slate-700/50 overflow-hidden shadow-sm">
-        {/* Table Filters/Search */}
         <div className="p-4 border-b border-slate-200/50 dark:border-slate-700/50 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/20">
           <div className="relative w-full max-w-sm">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
-              placeholder="Qidirish..."
+              placeholder="Search user..."
               className="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
         </div>
@@ -149,18 +157,18 @@ const Users = () => {
                 <th className="p-4 text-sm font-semibold text-slate-600 dark:text-slate-400">
                   Date
                 </th>
-                {/* <th className="p-4 w-10"></th> */}
+                <th className="p-4 w-10"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200/50 dark:divide-slate-700/50">
-              {usersData.map((user) => (
+              {filteredUsers.map((user) => (
                 <tr
                   key={user.id}
                   className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors group"
                 >
                   <td className="p-4">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-xs">
+                      <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-xs">
                         {user.name.charAt(0)}
                       </div>
                       <div>
@@ -199,13 +207,20 @@ const Users = () => {
                       {user.joinedDate}
                     </div>
                   </td>
-                  {/* <td className="p-4 text-right">
+                  <td className="p-4 text-right">
                     <button className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-slate-500">
                       <MoreHorizontal className="w-4 h-4" />
                     </button>
-                  </td> */}
+                  </td>
                 </tr>
               ))}
+              {filteredUsers.length === 0 && (
+                <tr>
+                  <td colSpan={4} className="text-center p-4 text-slate-500">
+                    No users found
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
