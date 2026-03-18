@@ -2,6 +2,7 @@ import { useState } from "react";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Header from "./components/Layout/Header";
 import Sidebar from "./components/Layout/Sidebar";
+import User from "./components/Dashboard/Users/users"
 
 const App = () => {
   const [sideBarCollapsed, setSideBarCollapsed] = useState(false);
@@ -25,6 +26,7 @@ const App = () => {
         <main className="flex-1 overflow-y-auto p-4 md:p-6">
           <div className="mx-auto max-w-[1600px]">
             {currentPage === "dashboard" && <Dashboard />}
+            {currentPage === "users" && <User />}
           </div>
         </main>
       </div>
