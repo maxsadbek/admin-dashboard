@@ -1,12 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Header from "./components/Layout/Header";
 import Sidebar from "./components/Layout/Sidebar";
-import User from "./components/Dashboard/Users/users"
+import User from "./components/Dashboard/Users/users";
+import Login from "./components/Login/Login";
 
 const App = () => {
   const [sideBarCollapsed, setSideBarCollapsed] = useState(false);
   const [currentPage, setCurrentPage] = useState("dashboard");
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    const auth = localStorage.getItem("isAuth");
+    if (auth === "true") {
+      setIsAuth(true);
+    }
+  }, []);
+
+  if (!isAuth) {
+    return <Login setIsAuth={setIsAuth} />;
+  }
 
   return (
     <div className="flex min-h-dvh bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
@@ -34,4 +47,4 @@ const App = () => {
   );
 };
 
-export default App
+export default App;

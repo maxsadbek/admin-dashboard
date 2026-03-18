@@ -1,91 +1,76 @@
-import { Bell, ChevronDown, Filter, Logs, Plus, Search, Settings, Sun } from "lucide-react";
-import UserImage from "../../assets/userImage.jpg"
+import {
+  Bell,
+  ChevronDown,
+  Logs,
+  Sun,
+} from "lucide-react";
+import UserImage from "../../assets/userImage.jpg";
 
 type HeaderProps = {
   onToggleSidebar: () => void;
   sidebarCollapsed: boolean;
 };
 
-const Header = ({ onToggleSidebar, sidebarCollapsed }: HeaderProps) => {
+const Header = ({ onToggleSidebar}: HeaderProps) => {
   return (
-    <div className="bg-white/50 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200/50  dark:border-slate-700/50 px-6 py-4">
-      <div className="flex items-center justify-between">
+    <header className="bg-white/50 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 px-6 py-4 sticky top-0 z-30">
+      <div className="flex items-center justify-between gap-4">
         {/* Left section */}
         <div className="flex items-center space-x-4">
-          <button className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-          onClick={onToggleSidebar}
+          <button
+            className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            onClick={onToggleSidebar}
           >
             <Logs className="w-5 h-5" />
           </button>
 
-          <div className="hidden md:block">
-            <h1 className="text-2xl font-black text-slate-800 dark:text-white">
+          <div className="hidden sm:block">
+            <h1 className="text-xl font-black text-slate-800 dark:text-white leading-tight">
               Dashboard
             </h1>
-            <p className="dark:text-slate-400 text">Welcome back, Maxsad here's what's happened today</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 truncate max-w-[200px]">
+              Welcome back, Maxsad
+            </p>
           </div>
         </div>
-        {/* Center */}
-        <div className="flex-1 max-w-md mx-8">
-          <div className="relative">
-            <Search className="w-5 h-5 absolute left-5 top-1/2 transform -translate-1/2 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Serach Anything"
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-200 dark:border-slate-700 rounded-xl
-              text-slate-800 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-            />
-            <button className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
-              <Filter />
+
+        {/* Right Section */}
+        <div className="flex items-center space-x-2 sm:space-x-3">
+          {/* Action Buttons */}
+          <div className="flex items-center border-r border-slate-200 dark:border-slate-700 pr-2 sm:pr-3 space-x-1">
+            <button className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+              <Sun className="w-5 h-5" />
+            </button>
+
+            <button className="relative p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+              <Bell className="w-5 h-5" />
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
             </button>
           </div>
-        </div>
-        {/* Right */}
-        <div className="flex items-center space-x-3">
-          {/* Quic Action */}
-          <button className="hidden lg:flex items-center space-x-2 py-2 px-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full hover:shadow-lg transition-all">
-            <Plus className="w-4 h-4" />
-            <span className="text-sm font-medium">New</span>
-          </button>
-          {/* Toggle */}
-          <button className="p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-            <Sun className="w-5 h-5" />
-          </button>
 
-          {/* Notification */}
-          <button className="relative p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-            <Bell className="w-5 h-5" />
-            <span className="absolute -top-1 w-5 h-5  bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-              3
-            </span>
-          </button>
-
-          {/* Settings */}
-
-          <button className="relative p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-            <Settings className="w-5 h-5" />
-          </button>
-
-          {/* User profile */}
-          <div className="flex items-center space-x-3 pl-3 border-l border-slate-200 dark:border-slate-700">
-            <img
-              src={UserImage}
-              alt="User"
-              className="w-8 h-8 rounded-full ring-2 ring-blue-500"
-            />
-            <div>
-              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
-                Maxsad Baxtiyorov
+          {/* User Profile */}
+          <div className="flex items-center space-x-3 cursor-pointer group">
+            <div className="relative">
+              <img
+                src={UserImage}
+                alt="User"
+                className="w-9 h-9 rounded-full object-cover ring-2 ring-transparent group-hover:ring-blue-500 transition-all"
+              />
+              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-slate-900 rounded-full"></div>
+            </div>
+            <div className="hidden xl:block">
+              <p className="text-sm font-bold text-slate-700 dark:text-slate-200 leading-none">
+                Maxsad B.
               </p>
-              <p className="text-slate-500 text-xs dark:text-slate-400">
-                Administrator
+              <p className="text-[10px] text-slate-500 dark:text-slate-500 font-medium uppercase mt-1">
+                Admin
               </p>
             </div>
-            <ChevronDown className="w-4 h-4 text-slate-400" />
+            <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 transition-colors" />
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
