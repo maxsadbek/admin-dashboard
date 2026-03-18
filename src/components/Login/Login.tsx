@@ -29,6 +29,7 @@ const Login = ({ setIsAuth }: { setIsAuth: (val: boolean) => void }) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              placeholder="Enter your email"
             />
           </div>
           <div>
@@ -41,6 +42,7 @@ const Login = ({ setIsAuth }: { setIsAuth: (val: boolean) => void }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              placeholder="Enter your password"
             />
           </div>
           <button

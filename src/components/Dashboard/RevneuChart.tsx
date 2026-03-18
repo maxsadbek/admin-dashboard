@@ -38,7 +38,7 @@ const RevneuseChart = () => {
         </p>
       </div>
 
-      <div className="h-80 w-full">
+      <div className="h-75 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
             <defs>

@@ -44,6 +44,7 @@ const App = () => {
         <Header
           sidebarCollapsed={sideBarCollapsed}
           onToggleSidebar={() => setSideBarCollapsed(!sideBarCollapsed)}
+          setIsAuth={setIsAuth} 
         />
 
         <main className="flex-1 overflow-y-auto p-4 md:p-6">
