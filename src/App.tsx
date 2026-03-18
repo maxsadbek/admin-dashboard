@@ -4,11 +4,22 @@ import Header from "./components/Layout/Header";
 import Sidebar from "./components/Layout/Sidebar";
 import User from "./components/Dashboard/Users/users";
 import Login from "./components/Login/Login";
+import { userThemeState } from "./Store/themeStore";
 
 const App = () => {
   const [sideBarCollapsed, setSideBarCollapsed] = useState(false);
   const [currentPage, setCurrentPage] = useState("dashboard");
   const [isAuth, setIsAuth] = useState(false);
+
+  const { darkMode } = userThemeState();
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
 
   useEffect(() => {
     const auth = localStorage.getItem("isAuth");
@@ -22,10 +33,9 @@ const App = () => {
   }
 
   return (
-    <div className="flex min-h-dvh bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
+    <div className="flex min-h-dvh bg-slate-50 dark:bg-[#020617] transition-colors duration-500">
       <Sidebar
         collapsed={sideBarCollapsed}
-        onToggle={() => setSideBarCollapsed(!sideBarCollapsed)}
         currentPage={currentPage}
         onPageChange={setCurrentPage}
       />
