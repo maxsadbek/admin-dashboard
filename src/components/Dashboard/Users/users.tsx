@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   MoreHorizontal,
   Search,
-  UserPlus,
   Mail,
   ShieldCheck,
   Calendar,
